@@ -1,0 +1,69 @@
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-lg-10 offset-lg-1">
+            <h1><strong>Software Jobs</strong></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 offset-2">
+            <input class="d-span w-100 mx-2" type="text" name="search" id="searchbar" [(ngModel)]="this.queryTerms">
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-secondary btn-sm mx-2 d-span" (click)="this.searchSubmit(this.pg)">Search</button>
+            <button class="btn btn-secondary btn-sm mx-2 d-span" (click)="this.queryTerms='';this.getArticles(0)" *ngIf="this.searchFlag">Clear</button>
+            <span class="mx-2 d-span" *ngIf="this.searchFlag"># of results:{{this.totalArticleCount}}</span>
+        </div>
+    </div>
+    <div class="row" *ngIf="this.articles">
+        <div class="col-lg-8 offset-lg-2">
+
+            <div class="row">
+                <table class="table table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Job</th>
+                            <th>
+                                Click for Details
+                            </th>
+                            <th>
+                                <button class="btn btn-secondary" (click)="this.articlesDateReverse()">Date Posted ({{this.orderIndicator}})</button>
+
+                            </th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let job of this.articles">
+                            <td>{{job[1]}}</td>
+                            <td>
+                                <button class="btn btn-sm" (click)="articleClick(content)">Details</button>
+                            </td>
+                            <td>{{job[2]}}</td>
+                            <td><a href="{{job[5]}}" target="_blank">Link</a></td>
+                            <ng-template #content let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">{{job[1]}}</h4>
+                                    <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                                </div>
+                                <div class="modal-body" >
+                                    <div [innerHTML]="job[4]"></div>
+                                </div>
+                            </ng-template>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <button class="btn btn-secondary w-100" (click)="this.articlesPagePrev()">Prev Page</button>
+                </div>
+                <div class="col-lg-2 offset-lg-3 text-center">
+                    Current Page-{{this.pg/20}}
+                </div>
+                <div class="col-lg-2 offset-lg-3">
+                    <button class="btn btn-secondary w-100" (click)="this.articlesPageNext()">Next Page</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
