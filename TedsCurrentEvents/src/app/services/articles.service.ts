@@ -8,14 +8,17 @@ import { Observable } from 'rxjs';
 export class ArticlesService {
 
   constructor(private http: HttpClient) { }
-  
+  private genre:String = '';
+  private category:String = '';
   sortDate=(articles):any[]=>articles.sort((a,b)=>Date.parse(b[2]) - Date.parse(a[2]));
   sortDateReverse=(articles):any[]=>articles.reverse();
-  
+  setCategoryANDGenre=(catGen:[any,any])=>[this.category,this.genre]=catGen;
+  getCategoriesANDGenres=():Observable<any>=>this.http.get('http://127.0.0.1:5000/sources/genres')
+  getGenre=()=>[this.category,this.genre];
   getArticles=(genre,pg=0,ord='DESC'):Observable<any>=>{
-    return this.http.get("http://127.0.0.1:5000/articles/"+genre+'/list?pg='+pg.toString()+'&ord='+ord);
+    return this.http.get('http://127.0.0.1:5000/articles/'+this.category+'/'+this.genre+'/list?pg='+pg.toString()+'&ord='+ord);
   }
-  searchArticles=(genre,searchTerm="",pg=0,ord='DESC'):Observable<any>=>this.http.get('http://127.0.0.1:5000/articles/'+genre+'/search',{
+  searchArticles=(genre,searchTerm="",pg=0,ord='DESC'):Observable<any>=>this.http.get('http://127.0.0.1:5000/articles/'+this.category+'/'+this.genre+'/search',{
     params: new HttpParams()
     .set('q',searchTerm)
     .set('pg', pg.toString())

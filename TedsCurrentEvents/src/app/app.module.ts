@@ -3,18 +3,22 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TechComponent } from './components/news/tech/tech.component';
+
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SoftwareComponent } from './components/jobs/software/software.component';
-import { FormsModule} from '@angular/forms'
+import { ArticleDisplayComponent } from './components/article-display/article-display.component';
+import { FormsModule} from '@angular/forms';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SourceMngrComponent } from './components/source-mngr/source-mngr.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    TechComponent,
+    
     HomeComponent,
-    SoftwareComponent
+    ArticleDisplayComponent,
+    NavbarComponent,
+    SourceMngrComponent
   ],
   imports: [
     BrowserModule,

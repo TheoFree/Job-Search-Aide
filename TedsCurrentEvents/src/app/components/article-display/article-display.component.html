@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row text-center">
         <div class="col-lg-10 offset-lg-1">
-            <h1><strong>Software Jobs</strong></h1>
+            <h1 style="text-transform:capitalize;"><strong>{{this.genre}} {{this.category}}</strong></h1>
         </div>
     </div>
     <div class="row">
@@ -29,14 +29,14 @@
                                 <button class="btn btn-secondary" (click)="this.articlesDateReverse()">Date Posted ({{this.orderIndicator}})</button>
 
                             </th>
-                            <th>Link</th>
+                            <th>Link to Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let job of this.articles">
                             <td>{{job[1]}}</td>
                             <td>
-                                <button class="btn btn-sm" (click)="articleClick(content)">Details</button>
+                                <button class="btn btn-secondary btn-sm" (click)="articleClick(content)">Details</button>
                             </td>
                             <td>{{job[2]}}</td>
                             <td><a href="{{job[5]}}" target="_blank">Link</a></td>

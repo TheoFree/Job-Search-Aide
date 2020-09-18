@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { TechComponent } from './components/news/tech/tech.component';
-import { SoftwareComponent } from './components/jobs/software/software.component';
+import { ArticleDisplayComponent } from './components/article-display/article-display.component';
+import { SourceMngrComponent } from './components/source-mngr/source-mngr.component';
 
 const routes: Routes = [
   {
@@ -10,12 +10,12 @@ const routes: Routes = [
     component:HomeComponent
   },
   {
-    path:"news/tech",
-    component:TechComponent
+    path:":category/:genre",
+    component:ArticleDisplayComponent
   },
   {
-    path:"jobs/software",
-    component:SoftwareComponent
+    path:"source-manager",
+    component:SourceMngrComponent
   },
   {
     path:"**",
