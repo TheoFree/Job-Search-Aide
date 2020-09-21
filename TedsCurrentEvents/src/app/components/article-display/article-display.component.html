@@ -41,12 +41,17 @@
                             <td>{{job[2]}}</td>
                             <td><a href="{{job[5]}}" target="_blank">Link</a></td>
                             <ng-template #content let-modal>
-                                <div class="modal-header">
+                                <div class="modal-header"  >
                                     <h4 class="modal-title">{{job[1]}}</h4>
-                                    <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                                    <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <div class="modal-body" >
-                                    <div [innerHTML]="job[4]"></div>
+                                    <slot id="modal" [innerHTML]="job[4]"></slot>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class=" mx-auto" href="{{job[5]}}" target="_blank">View full article...</a>
                                 </div>
                             </ng-template>
                         </tr>

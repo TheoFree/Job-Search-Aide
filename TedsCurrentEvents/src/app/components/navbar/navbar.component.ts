@@ -9,11 +9,13 @@ import { ArticlesService } from 'src/app/services/articles.service';
 export class NavbarComponent implements OnInit {
   constructor(private AS:ArticlesService) { }
   public categories_genres = [];
+  reBuild=()=>this.AS.sourcesChanged.subscribe(()=>this.buildNavbar())
   buildNavbar=()=>{
     this.AS.getCategoriesANDGenres().subscribe(res=>this.categories_genres = res)
   }
   ngOnInit(): void {
     this.buildNavbar();
+    this.reBuild();
   }
 
 }

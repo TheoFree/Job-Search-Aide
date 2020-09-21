@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-article-display',
   templateUrl: './article-display.component.html',
-  styleUrls: ['./article-display.component.scss']
+  styleUrls: ['./article-display.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ArticleDisplayComponent implements OnInit {
   category = '';

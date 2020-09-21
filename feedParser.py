@@ -25,7 +25,7 @@ res = cursor.fetchall()
 resLength = cursor.rowcount
 #get datetime from last check, to make sure that it stays up to date
 oldTime = res[0][3]  
-sql = "UPDATE sources SET lastchecked = '{}' WHERE (lastchecked = '{}') & (idsources > 0)"
+sql = "UPDATE sources SET lastchecked = '{}' WHERE (idsources > 0)"
 time = datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S")
 query = sql.format(time,oldTime)
 cursor.execute(query)
@@ -100,14 +100,15 @@ for i in range(resLength):
                         article.find('span',class_='author').text.strip(), #author
                         article.find('p').text.strip(), #excerpt/article preview
                         article.find('div',class_='entry-excerpt').find('a').get('href').strip(), #full article link
-                        res[i][4]
+                        res[i][4], 
+                        res[i][5]
                     )
                 )
             #     temp = len(article.find('p').text.strip())
             #     if( temp > longestLink): longestLink = temp
             # print(longestLink)
             print("entries generated")
-            upload_sql = "INSERT IGNORE INTO articles (title,dateposted,author,content,source,genre) VALUES (%s,%s,%s,%s,%s,%s);"
+            upload_sql = "INSERT IGNORE INTO articles (title,dateposted,author,content,source,category,genre) VALUES (%s,%s,%s,%s,%s,%s,%s);"
             upload_vals = entries
             if(debug!=True):
                 cursor.executemany(upload_sql,entries)
@@ -135,13 +136,14 @@ for i in range(resLength):
                             dateFormatted,
                             article.find('description').text.strip(),
                             getLink(article),
-                            res[i][4]
+                            res[i][4],
+                            res[i][5]
                         )
                     )
                 
             print("entries generated")
             # print(entries[0])
-            upload_sql = "INSERT IGNORE INTO articles (title,dateposted,content,source,genre) VALUES (%s,%s,%s,%s,%s);"
+            upload_sql = "INSERT IGNORE INTO articles (title,dateposted,content,source,category,genre) VALUES (%s,%s,%s,%s,%s,%s);"
             upload_vals = entries
             if(debug!=True):
                 cursor.executemany(upload_sql,entries)
