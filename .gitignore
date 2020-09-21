@@ -1,3 +1,4 @@
 new.html
 venv/*
 __pycache__/*
+dbAccessConfig.py

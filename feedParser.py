@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup as bs
 import feedparser, html, requests, mysql.connector, datetime , re, lxml, sys
+from dbAccessConfig import db_credentials
 
 debug = False
 
@@ -12,10 +13,12 @@ if(len(sys.argv)>1):
     #     debug = False
 #connect to database 
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Cathars|s13",
-    database="pywebscrapperdb"
+    host = "localhost",
+    user = db_credentials["user"],
+    password = db_credentials["password"],
+    database = db_credentials["Database"]
+
+    
 )
 #select statement -> get all from sources table to send html requests to.
 cursor = db.cursor()

@@ -2,11 +2,12 @@ from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 import re, datetime
+from dbAccessConfig import db_credentials 
 app = Flask(__name__)
 
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Cathars|s13'
-app.config['MYSQL_DB'] = 'pywebscrapperdb'
+app.config['MYSQL_USER'] = db_credentials["user"]
+app.config['MYSQL_PASSWORD'] = db_credentials["password"]
+app.config['MYSQL_DB'] = db_credentials["Database"]
 # app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
