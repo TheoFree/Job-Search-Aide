@@ -16,9 +16,7 @@ db = mysql.connector.connect(
     host = "localhost",
     user = db_credentials["user"],
     password = db_credentials["password"],
-    database = db_credentials["Database"]
-
-    
+    database = db_credentials["Database"]    
 )
 #select statement -> get all from sources table to send html requests to.
 cursor = db.cursor()
@@ -128,6 +126,7 @@ for i in range(resLength):
             
             for article in articles:
                 date =re.search('.+\s(.+)\s(.+)\s(\d{4})' ,article.find('pubDate').text.strip())
+                
                 dateD = date.group(1)
                 dateM = date.group(2)
                 dateY = date.group(3)

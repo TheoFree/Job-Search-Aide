@@ -12,7 +12,7 @@ export class ArticleDisplayComponent implements OnInit {
   category = '';
   genre = '';
   constructor(private AS: ArticlesService, private MS: NgbModal, private AR: ActivatedRoute) {
-    
+
   }
 
   articles = [];
@@ -23,12 +23,13 @@ export class ArticleDisplayComponent implements OnInit {
   queryTerms = "";
   searchFlag = false;
   getArticles = (pg: number) => {
+    // console.log("calledGet");
     const ord = this.orderDesc ? 'DESC' : 'ASC';
     this.searchFlag = false;
     this.AS.getArticles(this.genre, pg, ord).subscribe(res => {
-      console.log(res)
+      // console.log(res)
       this.articles = res.articles;
-      this.totalArticleCount = res.count[0];
+      this.totalArticleCount = res.count;
 
     })
     return this.articles;
@@ -49,7 +50,7 @@ export class ArticleDisplayComponent implements OnInit {
     this.pg = 0;
     return this.articles
   }
-  articlesPageNext = (): any[] => this.pg > this.totalArticleCount - 20 ? this.articles : this.searchFlag ? this.searchSubmit(this.pg += 20) : this.getArticles(this.pg += 20);
+  articlesPageNext = (): any[] => this.pg > (this.totalArticleCount - 20)? this.articles : this.searchFlag ? this.searchSubmit(this.pg += 20) : this.getArticles(this.pg += 20);
   articlesPagePrev = (): any[] => this.pg < 20 ? this.articles : this.searchFlag ? this.searchSubmit(this.pg -= 20) : this.getArticles(this.pg -= 20);
   articleClick = (content) => this.MS.open(content, { ariaLabelledBy: 'article-description', size: 'lg' });
   ngOnInit(): void {

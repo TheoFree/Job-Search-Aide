@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 import re, datetime
+
 from dbAccessConfig import db_credentials 
 app = Flask(__name__)
 
@@ -17,8 +18,11 @@ CORS(app)
 @app.route('/articles/<category>/<genre>/list',methods=['Get'])
 def get_articles_wPages(category,genre):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT count(*) FROM articles WHERE category = '{}' AND genre = '{}' ".format(genre,category))
-    countArticles = cur.fetchall()
+    countArticlesSQL = "SELECT * FROM articles WHERE (category = '{}' AND genre = '{}') ".format(category,genre)
+    print(countArticlesSQL)
+    cur.execute(countArticlesSQL)
+    countArticles = cur.rowcount
+    print(countArticles)
     if 'pg' in request.args:
         pgNum = request.args.get('pg', '')
         print('got it',pgNum)
@@ -148,7 +152,8 @@ def new_source(url,params,date,cat,genre):
     # print(cur.fetchall())
 
     mysql.connection.commit()
-    get_sources()
+    # get_sources()
+        
     return(jsonify(cur.fetchall()))
 @app.route('/sources/delete/<id>',methods = ['DELETE'])
 def removeSource(id):
